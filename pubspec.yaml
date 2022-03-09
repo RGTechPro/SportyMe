@@ -41,7 +41,7 @@ dependencies:
   flutter_svg: ^1.0.3 # help us to use SVG in our app
   provider: ^6.0.0 # for State management
   url_launcher: ^6.0.18
-  smooth_page_indicator: ^1.0.0+2
+
 
 dev_dependencies:
   flutter_test:
