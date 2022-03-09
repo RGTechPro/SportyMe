@@ -88,7 +88,14 @@ class _MentorScreenState extends State<MentorScreen> {
                       //shrinkWrap: true,
                       //  physics: PageScrollPhysics(),
                       scrollDirection: Axis.horizontal,
-                      children: [PlayCard(), PlayCard()]),
+                      children: [
+                        PlayCard(),
+                        PlayCard(),
+                        PlayCard(),
+                        PlayCard(),
+                        PlayCard(),
+                        PlayCard()
+                      ]),
                 ),
               ),
               Center(

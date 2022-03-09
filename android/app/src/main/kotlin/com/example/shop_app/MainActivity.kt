@@ -1,4 +1,4 @@
-package com.example.shop_app
+package com.wersharks.sportyme
 
 import io.flutter.embedding.android.FlutterActivity
 
