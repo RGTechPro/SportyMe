@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "800240519039-8edesp06lhb1obfifsdppb6p8ikl3ovo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wersharks.sportyme",
+            "certificate_hash": "7ba0925b6b8ed8286dc77bd1a855d631998a6f54"
+          }
+        },
+        {
           "client_id": "800240519039-1eti7eqvbvgl9qj60s62sfevt9utsutn.apps.googleusercontent.com",
           "client_type": 3
         }
