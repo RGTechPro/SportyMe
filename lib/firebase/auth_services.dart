@@ -1,0 +1,114 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/provider/account.dart';
+import 'package:http/http.dart' as http;
+
+import '../screens/home/home_screen.dart';
+import '../screens/sign_in/sign_in_screen.dart';
+
+class Auth extends ChangeNotifier {
+   User? _firebaseUser; 
+   bool isLoading = false;
+     String mobileNumber = 'Unknown';
+  setUser(User? user) {
+    _firebaseUser = user;
+    notifyListeners();
+  }
+   User? getUser() {
+    return _firebaseUser;
+  }
+
+signInWithGoogle(BuildContext context) async {
+    // Trigger the authentication flow
+
+   try{
+     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+     isLoading = true;
+     //isLoading = true;
+     notifyListeners();
+     // Obtain the auth details from the request
+     final GoogleSignInAuthentication googleAuth =
+     await googleUser!.authentication;
+
+     // Create a new credential
+     final credential = GoogleAuthProvider.credential(
+       accessToken: googleAuth.accessToken,
+       idToken: googleAuth.idToken,
+     );
+
+     // Once signed in, return the UserCredential
+
+     UserCredential user = await FirebaseAuth.instance.signInWithCredential(credential);
+
+
+     print(user.user?.uid);
+     print(user.user?.email);
+     //if(user.additionalUserInfo.isNewUser) {
+   
+
+     //}
+ 
+
+     Navigator.pushNamedAndRemoveUntil(context,  HomeScreen.routeName, (route) => false);
+   }catch(e) {
+     print(e);
+   }
+
+  }
+ addUser() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    bool exist = false;
+    try {
+      await users.doc(user!.uid).get().then((doc) {
+        exist = doc.exists;
+        if (exist == true) print('exist');
+      });
+    } catch (e) {
+      // If any error
+      exist = false;
+      print(e);
+    }
+    if (exist == false) {
+      users
+          .doc(user!.uid)
+          .set({
+            'name': user.displayName,
+            'email': user.email,
+            'phoneNo': user.phoneNumber,
+            'profile_pic':user.photoURL
+          })
+          .then((value) => print("User Added"))
+          .catchError((error) => print("Failed to add user: $error"));
+    }
+  }
+ 
+
+  Future<void> logout(BuildContext context) async {
+    /// Method to Logout the `FirebaseUser` (`_firebaseUser`)
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    try {
+      // signout code
+      await FirebaseAuth.instance.signOut();
+      await googleSignIn.signOut();
+      _firebaseUser = null;
+      final snackBar = SnackBar(content: Text('Logged Out!'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      // Provider.of<CartData>(context, listen: false).clearCartData();
+      // Provider.of<CartData>(context, listen: false).cleara();
+    } catch (e) {
+      final snackBar = SnackBar(content: Text(e.toString()));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+   
+   Provider.of<Account>(context, listen: false).logout();
+    Navigator.pushNamedAndRemoveUntil(context,SignInScreen.routeName, (route) => false);
+    notifyListeners();
+  }
+
+}
