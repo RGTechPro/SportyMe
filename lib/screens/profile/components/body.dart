@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app/screens/splash/splash_screen.dart';
 
+import '../../../firebase/auth_services.dart';
 import 'profile_menu.dart';
 import 'profile_pic.dart';
 
@@ -36,7 +38,11 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "Log Out",
             icon: "assets/icons/Log out.svg",
-            press: () => Navigator.pushNamed(context, SplashScreen.routeName),
+            press: () {Provider.of<Auth>(context, listen: false).logout(context);
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      Navigator.pushReplacementNamed(
+                          context,
+                          SplashScreen.routeName);},
           ),
         ],
       ),
