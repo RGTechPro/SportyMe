@@ -4,33 +4,34 @@ import 'package:shop_app/constants.dart';
 import 'package:shop_app/enums.dart';
 import 'package:shop_app/screens/home/components/home_header.dart';
 import 'package:shop_app/screens/home/components/list_item_builder.dart';
+import 'package:shop_app/screens/mentor/card.dart';
 import 'package:shop_app/screens/mentor/mentor.dart';
 import 'package:shop_app/screens/mentor/mentor_list_tile.dart';
 import 'package:shop_app/size_config.dart';
-
-List<Mentor> mentorValues = [
-  Mentor(
-    name: "Surabhi Mishra",
-    location: "Sector-45 playgound",
-    time: "7:00 - 8:00 pm",
-    image: "assets/images/bunny.png",
-    sport: "Badminton",
-  ),
-  Mentor(
-    name: "Surabhi Mishra",
-    location: "Sector-45 playgound",
-    time: "7:00 - 8:00 pm",
-    image: "assets/images/bunny.png",
-    sport: "Badminton",
-  ),
-  Mentor(
-    name: "Surabhi Mishra",
-    location: "Sector-45 playgound",
-    time: "7:00 - 8:00 pm",
-    image: "assets/images/bunny.png",
-    sport: "Badminton",
-  ),
-];
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+// List<Mentor> mentorValues = [
+//   Mentor(
+//     name: "Surabhi Mishra",
+//     location: "Sector-45 playgound",
+//     time: "7:00 - 8:00 pm",
+//     image: "assets/images/bunny.png",
+//     sport: "Badminton",
+//   ),
+//   Mentor(
+//     name: "Surabhi Mishra",
+//     location: "Sector-45 playgound",
+//     time: "7:00 - 8:00 pm",
+//     image: "assets/images/bunny.png",
+//     sport: "Badminton",
+//   ),
+//   Mentor(
+//     name: "Surabhi Mishra",
+//     location: "Sector-45 playgound",
+//     time: "7:00 - 8:00 pm",
+//     image: "assets/images/bunny.png",
+//     sport: "Badminton",
+//   ),
+// ];
 
 class MentorScreen extends StatefulWidget {
   static String routeName = "/mentor";
@@ -44,7 +45,14 @@ class MentorScreen extends StatefulWidget {
 class _MentorScreenState extends State<MentorScreen> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    var controller = PageController(viewportFraction: 0.95);
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Color(0xffff6357),
+        child: Icon(Icons.add),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(18.0),
@@ -68,200 +76,27 @@ class _MentorScreenState extends State<MentorScreen> {
                     fontSize: 32,
                     fontWeight: FontWeight.bold),
               ),
-              Expanded(
+              SizedBox(
+                height: SizeConfig.screenHeight * .65,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 14),
-                  child: Container(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 24),
-                      child: Container(
-                          child: ListView(
-                              // mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      CircleAvatar(
-                                          radius: 45,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(45),
-                                            child: Image.network(
-                                              'https://images.pexels.com/photos/4386404/pexels-photo-4386404.jpeg?cs=srgb&dl=pexels-karolina-grabowska-4386404.jpg&fm=jpg',
-                                              height: 90,
-                                              width: 90,
-                                              fit: BoxFit.fitWidth,
-                                            ),
-                                          )),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(15.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Sanjeev k. guleria',
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontFamily: 'TW',
-                                                    fontSize: 22,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                "I don't know who you are but yes, I will play badminton",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontFamily: 'Segoi',
-                                                    fontSize: 13),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(15.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Venue:',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: 'Segoi',
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                          "Rose Cottage\n9 Garden Walk (Complex road name is Garden)\nHappy Valley Retirement Village\n75 Davis Street\nNORWOOD SA 5067",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: 'Segoi',
-                                              fontSize: 13),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.sports_basketball,
-                                        size: 45,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        'BASKETBALL',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontFamily: 'Koho',
-                                            fontSize: 33,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(20.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Time: 5.20 pm on 09/03/2022",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: 'Segoi',
-                                              fontSize: 13),
-                                        ),
-                                        Text(
-                                          "Extra-tags: Amateur, Fun, Casual Play, Friendly Match, Need One",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: 'Segoi',
-                                              fontSize: 13),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 5),
-                                    child: GestureDetector(
-                                      child: Container(
-                                          child: Text(
-                                            "Sure, let's play",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontFamily: 'Segoi',
-                                                fontSize: 30,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          height: 48,
-                                          decoration: BoxDecoration(
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: Colors.grey
-                                                        .withOpacity(0.5),
-                                                    offset: Offset(0, .5),
-                                                    spreadRadius: .1,
-                                                    blurRadius: 3),
-                                              ],
-                                              color: Color(0xffff6357),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10)),
-                                              border: Border.all(
-                                                  color: Color(0xffff6357)))),
-                                    ),
-                                  ),
-                                )
-                              ]),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(45),
-                                topRight: Radius.circular(18),
-                                bottomLeft: Radius.circular(18),
-                                bottomRight: Radius.circular(18),
-                              ),
-                              border: Border.all(color: Colors.white))),
-                    ),
-                    decoration: BoxDecoration(
-                        color: Color(0xffcffde7),
-                        // boxShadow: [
-                        //   BoxShadow(
-                        //       color: Colors.grey.withOpacity(0.5),
-                        //       offset: Offset(0, .5),
-                        //       spreadRadius: .1,
-                        //       blurRadius: 3),
-                        // ],
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                        border: Border.all(color: Color(0xffcffde7))),
-                  ),
+                  child: PageView(
+                      controller: controller,
+                      onPageChanged: (int i) {
+                        setState(() {});
+                      },
+                      //shrinkWrap: true,
+                      //  physics: PageScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      children: [PlayCard(), PlayCard()]),
                 ),
+              ),
+              Center(
+                child: SmoothPageIndicator(
+                    controller: controller, // PageController
+                    count: 6,
+                    effect: WormEffect(), // your preferred effect
+                    onDotClicked: (index) {}),
               )
             ],
           ),
@@ -343,6 +178,6 @@ class _MentorScreenState extends State<MentorScreen> {
 //   );
 // }
 
-Stream<List<Mentor>> mentorStream() {
-  return Stream.value(mentorValues);
-}
+// Stream<List<Mentor>> mentorStream() {
+//   return Stream.value(mentorValues);
+// }
