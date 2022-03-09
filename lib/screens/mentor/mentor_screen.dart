@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/components/custom_bottom_nav_bar.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/enums.dart';
+import 'package:shop_app/screens/forms/eventform.dart';
 import 'package:shop_app/screens/home/components/home_header.dart';
 import 'package:shop_app/screens/home/components/list_item_builder.dart';
 import 'package:shop_app/screens/mentor/card.dart';
@@ -9,6 +10,7 @@ import 'package:shop_app/screens/mentor/mentor.dart';
 import 'package:shop_app/screens/mentor/mentor_list_tile.dart';
 import 'package:shop_app/size_config.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:shop_app/routes.dart';
 // List<Mentor> mentorValues = [
 //   Mentor(
 //     name: "Surabhi Mishra",
@@ -49,7 +51,9 @@ class _MentorScreenState extends State<MentorScreen> {
     var controller = PageController(viewportFraction: 0.95);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, EventForm.routeName);
+        },
         backgroundColor: Color(0xffff6357),
         child: Icon(Icons.add),
       ),

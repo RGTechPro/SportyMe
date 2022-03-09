@@ -18,11 +18,11 @@ class CustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color inActiveIconColor = Color(0xFF009E60);
+    final Color inActiveIconColor = kPrimaryColor;
     return Container(
       padding: EdgeInsets.symmetric(vertical: 14),
       decoration: BoxDecoration(
-        color: Colors.greenAccent,
+        color: kBottomNavColor,
         boxShadow: [
           BoxShadow(
             offset: Offset(0, -15),

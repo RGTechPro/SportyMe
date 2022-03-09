@@ -22,6 +22,22 @@
           }
         },
         {
+          "client_id": "800240519039-gktmvt1ne2b3bmma7ns43ian74i1uvp1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wersharks.sportyme",
+            "certificate_hash": "62e3b583e154704b45ecbc2074426bccc8a0da46"
+          }
+        },
+        {
+          "client_id": "800240519039-m0cg6c4rm31cvre3m5kiv2mo3amaa1f8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wersharks.sportyme",
+            "certificate_hash": "0353db340c756d017d204518ff7777ba0f68f70e"
+          }
+        },
+        {
           "client_id": "800240519039-1eti7eqvbvgl9qj60s62sfevt9utsutn.apps.googleusercontent.com",
           "client_type": 3
         }

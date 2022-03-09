@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../constants.dart';
 
 class PlayCard extends StatelessWidget {
   const PlayCard({Key? key}) : super(key: key);
@@ -35,7 +36,7 @@ class PlayCard extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Sanjeev k. guleria',
+                                  'Sanjeev K. Guleria',
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: 'TW',
@@ -126,6 +127,7 @@ class PlayCard extends StatelessWidget {
                         ],
                       ),
                     ),
+                    Spacer(),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 5),
@@ -171,7 +173,7 @@ class PlayCard extends StatelessWidget {
                   border: Border.all(color: Colors.white))),
         ),
         decoration: BoxDecoration(
-            color: Color(0xffcffde7),
+            color: kCardBgColor,
             // boxShadow: [
             //   BoxShadow(
             //       color: Colors.grey.withOpacity(0.5),

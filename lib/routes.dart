@@ -1,5 +1,9 @@
 import 'package:flutter/widgets.dart';
 
+import 'package:shop_app/screens/forms/eventform.dart';
+import 'package:shop_app/screens/forms/rentoutform.dart';
+
+
 import 'package:shop_app/screens/cart/cart_screen.dart';
 import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
@@ -36,5 +40,6 @@ final Map<String, WidgetBuilder> routes = {
   AddOpportunity.routeName : (context) => AddOpportunity(),
   AddStory.routeName : (context) => AddStory(),
 
-
+  EventForm.routeName : (context) => EventForm(),
+  RentOutForm.routeName : (context) => RentOutForm(),
 };
