@@ -55,7 +55,8 @@ class _BodyState extends State<Body> {
 
                               // Provider.of<Auth>(context, listen: false)
                               //     .setUser(googleUserCred.user);
-//                            Provider.of<Auth>(context, listen: false).addUser();
+                              Provider.of<Auth>(context, listen: false)
+                                  .addUser();
                               if (Provider.of<Auth>(context, listen: false)
                                       .getUser() !=
                                   null) {
