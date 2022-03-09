@@ -67,6 +67,15 @@ flutter:
           weight: 700
         - asset: assets/fonts/muli/Muli-Light.ttf
           weight: 300
+    - family: Segoi
+      fonts:      
+        - asset: assets/fonts/SegoeUI.ttf
+    - family: Tw
+      fonts:      
+        - asset: assets/fonts/TWCent.otf    
+    - family: Koho
+      fonts:      
+        - asset: assets/fonts/KoHo.ttf            
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
