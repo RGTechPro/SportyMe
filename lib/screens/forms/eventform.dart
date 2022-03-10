@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shop_app/firebase/make_events.dart';
 import 'package:shop_app/firebase/user.dart';
 import 'package:shop_app/models/EventCard.dart';
 import 'package:shop_app/models/Profile.dart';
 
-
 class EventForm extends StatelessWidget {
-    final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _urlController = TextEditingController();
   final TextEditingController _deadlineController = TextEditingController();
@@ -23,7 +23,10 @@ class EventForm extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.redAccent,
-        title: Text('Not your pick?\nCreate your event!',style: TextStyle(color: Colors.white),),
+        title: Text(
+          'Not your pick?\nCreate your event!',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
         elevation: 0,
       ),
@@ -36,7 +39,7 @@ class EventForm extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Form(
         autovalidateMode: AutovalidateMode.onUserInteraction,
-            key: _formKey,
+        key: _formKey,
         child: (Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -74,10 +77,19 @@ class EventForm extends StatelessWidget {
     //     url: 'https://' + _urlController.text,
     //     Owner: _deadlineController.text,
     //     equipment_availability: _elgController.text));
-    Profile my = await GetProfile(FirebaseAuth.instance.currentUser!.uid).getProfile();
-    EventCard card = EventCard(userprof: my, desc: _descController.text, venue: _elgController.text, sport: _nameController.text, time: _urlController.text, extratags: _tagsController.text);
-    MakeEvents().addEvent(card).then((value) => print("Success!"));
-    Navigator.of(context).pop();
+    if (_formKey.currentState!.validate()) {
+      Profile my =
+          await GetProfile(FirebaseAuth.instance.currentUser!.uid).getProfile();
+      EventCard card = EventCard(
+          userprof: my,
+          desc: _descController.text,
+          venue: _elgController.text,
+          sport: _nameController.text,
+          time: _urlController.text,
+          extratags: _tagsController.text);
+      MakeEvents().addEvent(card).then((value) => print("Success!"));
+      Navigator.of(context).pop();
+    }
   }
 
   TextFormField _buildNameTextFormField() {
@@ -145,6 +157,15 @@ class EventForm extends StatelessWidget {
 
   TextFormField _buildEligibilityTextFormField() {
     return TextFormField(
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+      ],
+      keyboardType: TextInputType.number,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Please Enter valid Number ';
+        }
+      },
       decoration: InputDecoration(
         labelText: 'How many Spots',
         hintText: '1',
@@ -162,7 +183,7 @@ class EventForm extends StatelessWidget {
     );
   }
 
-    TextFormField _buildDescTextFormField() {
+  TextFormField _buildDescTextFormField() {
     return TextFormField(
       decoration: InputDecoration(
         labelText: 'Desc',
@@ -181,8 +202,7 @@ class EventForm extends StatelessWidget {
     );
   }
 
-
-    TextFormField _buildTagsTextFormField() {
+  TextFormField _buildTagsTextFormField() {
     return TextFormField(
       decoration: InputDecoration(
         labelText: 'All tags',

@@ -154,6 +154,26 @@ class PlayCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 5),
                       child: GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("User notified"),
+                                content: Text(
+                                    "User has been notified. You will be contacted soon!"),
+                                actions: [
+                                  TextButton(
+                                    child: Text("Close"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  )
+                                ],
+                              );
+                            },
+                          );
+                        },
                         child: Container(
                             width: double.infinity,
                             child: Text(
