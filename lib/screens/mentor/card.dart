@@ -7,21 +7,23 @@ class PlayCard extends StatelessWidget {
   PlayCard({Key? key}) : super(key: key);
 
   EventCard eventCard = EventCard(
-  userprof: 
-    Profile(uid: "id", 
-    name: "Anonymous User", 
-    img: "https://images.pexels.com/photos/4386404/pexels-photo-4386404.jpeg?cs=srgb&dl=pexels-karolina-grabowska-4386404.jpg&fm=jpg", 
-    email: "email"), 
-  desc: "I don't know who you are but yes, I will play badminton", 
-  venue: "Rose Cottage, 9 Garden Walk (Complex road name is Garden), Happy Valley Retirement Village, 75 Davis Street, NORWOOD SA 5067", 
-  sport: "BASKETBALL", 
-  time: "5.20 pm on 09/03/2022", 
-  extratags: "Extra-tags: Amateur, Fun, Casual Play, Friendly Match, Need One");
+      userprof: Profile(
+          uid: "id",
+          name: "Anonymous User",
+          img:
+              "https://images.pexels.com/photos/4386404/pexels-photo-4386404.jpeg?cs=srgb&dl=pexels-karolina-grabowska-4386404.jpg&fm=jpg",
+          email: "email"),
+      desc: "I don't know who you are but yes, I will play badminton",
+      venue:
+          "Rose Cottage, 9 Garden Walk (Complex road name is Garden), Happy Valley Retirement Village, 75 Davis Street, NORWOOD SA 5067",
+      sport: "BASKETBALL",
+      time: "5.20 pm on 09/03/2022",
+      extratags:
+          "Extra-tags: Amateur, Fun, Casual Play, Friendly Match, Need One");
 
   PlayCard.from({
     required this.eventCard,
-});
-
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class PlayCard extends StatelessWidget {
           child: Container(
               child: Column(
                   // mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -201,7 +204,7 @@ class PlayCard extends StatelessWidget {
             //       blurRadius: 3),
             // ],
             borderRadius: BorderRadius.all(Radius.circular(12)),
-            border: Border.all(color: Color(0xffcffde7))),
+            border: Border.all(color: kCardBgColor)),
       ),
     );
   }

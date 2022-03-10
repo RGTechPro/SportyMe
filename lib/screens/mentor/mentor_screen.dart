@@ -51,8 +51,8 @@ class MentorScreen extends StatefulWidget {
 class _MentorScreenState extends State<MentorScreen> {
   User? user = FirebaseAuth.instance.currentUser;
   var _events_data;
-  int _counter = 0;
-
+  int counter = 0;
+  final controller = PageController(viewportFraction: 0.95, keepPage: true);
   @override
   void initState() {
     super.initState();
@@ -62,7 +62,7 @@ class _MentorScreenState extends State<MentorScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    var controller = PageController(viewportFraction: 0.95);
+    print(counter);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -82,7 +82,7 @@ class _MentorScreenState extends State<MentorScreen> {
                 height: 20,
               ),
               Text(
-                'Hey, '+user!.displayName!+"!",
+                'Hey, ' + user!.displayName! + "!",
                 style: TextStyle(
                     color: Colors.black, fontFamily: 'Segoi', fontSize: 24),
               ),
@@ -97,29 +97,33 @@ class _MentorScreenState extends State<MentorScreen> {
               SizedBox(
                 height: SizeConfig.screenHeight * .65,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  child: FutureBuilder<List<EventCard>>(
-                      future: FetchAllEvents().getData(),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return Center(child: CircularProgressIndicator());
-                        } else {
-                          // setState(() {  });
-                          _counter=snapshot.data!.length;
-                          return PageView.builder(
-                            itemBuilder: (context, position) {
-                              return PlayCard.from(eventCard: snapshot.data!.elementAt(position));
-                            },
-                            itemCount: _counter, // Can be null
-                          );
-                        }
-                      })
-                ),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    child: FutureBuilder<List<EventCard>>(
+                        future: FetchAllEvents().getData(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return Center(child: CircularProgressIndicator());
+                          } else {
+                            // setState(() {  });
+                            counter = snapshot.data!.length;
+                            print(counter);
+
+                            return PageView.builder(
+                              controller: controller,
+                              itemBuilder: (context, position) {
+                                return PlayCard.from(
+                                    eventCard:
+                                        snapshot.data!.elementAt(position));
+                              },
+                              itemCount: counter, // Can be null
+                            );
+                          }
+                        })),
               ),
               Center(
                 child: SmoothPageIndicator(
                     controller: controller, // PageController
-                    count: _counter,
+                    count: counter,
                     effect: WormEffect(), // your preferred effect
                     onDotClicked: (index) {}),
               )
