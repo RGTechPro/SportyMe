@@ -9,7 +9,7 @@ class AddOpportunity extends StatelessWidget {
   final TextEditingController _urlController = TextEditingController();
   final TextEditingController _elgController = TextEditingController();
   final TextEditingController _deadlineController = TextEditingController();
-
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,31 +23,36 @@ class AddOpportunity extends StatelessWidget {
   }
 
   Widget _buildChildren(BuildContext context) {
+    
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: (Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(height: 25.0),
-          _buildNameTextField(),
-          SizedBox(height: 25.0),
-          _buildUrlTextField(),
-          SizedBox(height: 25.0),
-          _buildEligibilityTextField(),
-          SizedBox(height: 25.0),
-          _buildDeadlineTextField(),
-          SizedBox(height: 18.0),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: kPrimaryColor, textStyle: TextStyle(fontSize: 17)),
-            onPressed: () => _submit(context),
-            child: Text(
-              "Submit",
-              style: TextStyle(fontWeight: FontWeight.bold),
+      child: Form(
+         autovalidateMode: AutovalidateMode.onUserInteraction,
+            key: _formKey,
+        child: (Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 25.0),
+            _buildNameTextFormField(),
+            SizedBox(height: 25.0),
+            _buildUrlTextFormField(),
+            SizedBox(height: 25.0),
+            _buildEligibilityTextFormField(),
+            SizedBox(height: 25.0),
+            _buildDeadlineTextFormField(),
+            SizedBox(height: 18.0),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: kPrimaryColor, textStyle: TextStyle(fontSize: 17)),
+              onPressed: () => _submit(context),
+              child: Text(
+                "Submit",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
-        ],
-      )),
+          ],
+        )),
+      ),
     );
   }
 
@@ -60,8 +65,8 @@ class AddOpportunity extends StatelessWidget {
     Navigator.of(context).pop();
   }
 
-  TextField _buildNameTextField() {
-    return TextField(
+  TextFormField _buildNameTextFormField() {
+    return TextFormField(
       decoration: InputDecoration(
         labelText: 'Equipment',
         hintText: 'Tennis Racket',
@@ -81,8 +86,8 @@ class AddOpportunity extends StatelessWidget {
     );
   }
 
-  TextField _buildUrlTextField() {
-    return TextField(
+  TextFormField _buildUrlTextFormField() {
+    return TextFormField(
       decoration: InputDecoration(
         labelText: 'URL',
         hintText: 'apac.com',
@@ -102,8 +107,8 @@ class AddOpportunity extends StatelessWidget {
     );
   }
 
-  TextField _buildDeadlineTextField() {
-    return TextField(
+  TextFormField _buildDeadlineTextFormField() {
+    return TextFormField(
       decoration: InputDecoration(
         labelText: 'Owner',
         hintText: 'Rohan Mittal',
@@ -123,8 +128,8 @@ class AddOpportunity extends StatelessWidget {
     );
   }
 
-  TextField _buildEligibilityTextField() {
-    return TextField(
+  TextFormField _buildEligibilityTextFormField() {
+    return TextFormField(
       decoration: InputDecoration(
         labelText: 'Equipment Availability',
         hintText: '6pm to 8pm',

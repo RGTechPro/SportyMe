@@ -7,6 +7,7 @@ import 'package:shop_app/models/Profile.dart';
 
 
 class EventForm extends StatelessWidget {
+    final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _urlController = TextEditingController();
   final TextEditingController _deadlineController = TextEditingController();
@@ -33,33 +34,37 @@ class EventForm extends StatelessWidget {
   Widget _buildChildren(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: (Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(height: 40.0),
-          _buildNameTextField(),
-          SizedBox(height: 40.0),
-          _buildUrlTextField(),
-          SizedBox(height: 40.0),
-          _buildEligibilityTextField(),
-          SizedBox(height: 40.0),
-          _buildDeadlineTextField(),
-          SizedBox(height: 40.0),
-          _buildDescTextField(),
-          SizedBox(height: 40.0),
-          _buildTagsTextField(),
-          SizedBox(height: 40.0),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Colors.red, textStyle: TextStyle(fontSize: 20)),
-            onPressed: () => _submit(context),
-            child: Text(
-              "Create an Event!",
-              style: TextStyle(fontWeight: FontWeight.bold),
+      child: Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+            key: _formKey,
+        child: (Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 40.0),
+            _buildNameTextFormField(),
+            SizedBox(height: 40.0),
+            _buildUrlTextFormField(),
+            SizedBox(height: 40.0),
+            _buildEligibilityTextFormField(),
+            SizedBox(height: 40.0),
+            _buildDeadlineTextFormField(),
+            SizedBox(height: 40.0),
+            _buildDescTextFormField(),
+            SizedBox(height: 40.0),
+            _buildTagsTextFormField(),
+            SizedBox(height: 40.0),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.red, textStyle: TextStyle(fontSize: 20)),
+              onPressed: () => _submit(context),
+              child: Text(
+                "Create an Event!",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
-        ],
-      )),
+          ],
+        )),
+      ),
     );
   }
 
@@ -75,8 +80,8 @@ class EventForm extends StatelessWidget {
     Navigator.of(context).pop();
   }
 
-  TextField _buildNameTextField() {
-    return TextField(
+  TextFormField _buildNameTextFormField() {
+    return TextFormField(
       decoration: InputDecoration(
         labelText: 'Sport',
         hintText: 'Badminton',
@@ -96,8 +101,8 @@ class EventForm extends StatelessWidget {
     );
   }
 
-  TextField _buildUrlTextField() {
-    return TextField(
+  TextFormField _buildUrlTextFormField() {
+    return TextFormField(
       decoration: InputDecoration(
         labelText: 'Date-Time Pick',
         hintText: '11/03/2022-7pm',
@@ -117,8 +122,8 @@ class EventForm extends StatelessWidget {
     );
   }
 
-  TextField _buildDeadlineTextField() {
-    return TextField(
+  TextFormField _buildDeadlineTextFormField() {
+    return TextFormField(
       decoration: InputDecoration(
         labelText: 'Address/location',
         hintText: 'Sector 16 Playground, Patiala',
@@ -138,8 +143,8 @@ class EventForm extends StatelessWidget {
     );
   }
 
-  TextField _buildEligibilityTextField() {
-    return TextField(
+  TextFormField _buildEligibilityTextFormField() {
+    return TextFormField(
       decoration: InputDecoration(
         labelText: 'How many Spots',
         hintText: '1',
@@ -157,8 +162,8 @@ class EventForm extends StatelessWidget {
     );
   }
 
-    TextField _buildDescTextField() {
-    return TextField(
+    TextFormField _buildDescTextFormField() {
+    return TextFormField(
       decoration: InputDecoration(
         labelText: 'Desc',
         hintText: 'Short description of this event',
@@ -177,8 +182,8 @@ class EventForm extends StatelessWidget {
   }
 
 
-    TextField _buildTagsTextField() {
-    return TextField(
+    TextFormField _buildTagsTextFormField() {
+    return TextFormField(
       decoration: InputDecoration(
         labelText: 'All tags',
         hintText: 'All relevant tags related to this event',
