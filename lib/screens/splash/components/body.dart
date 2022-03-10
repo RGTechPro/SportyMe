@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 import 'package:shop_app/size_config.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-
+import '../../home/home_screen.dart';
 import '../components/splash_content.dart';
 import '../../../components/default_button.dart';
 
@@ -16,7 +17,8 @@ class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
-      "text": "An app for all sport enthusiasts out there \nfind your right match and apt equipments anytime! \n \n Swipe right for more info...",
+      "text":
+          "An app for all sport enthusiasts out there \nfind your right match and apt equipments anytime! \n \n Swipe right for more info...",
       "image": "assets/images/goal.png"
     },
     {
@@ -25,7 +27,8 @@ class _BodyState extends State<Body> {
       "image": "assets/images/ten.png"
     },
     {
-      "text": "Rent, buy and sell sports equipments and . \nShare your fitness journey with everyone \n and get support of other fitness freaks.",
+      "text":
+          "Rent, buy and sell sports equipments and . \nShare your fitness journey with everyone \n and get support of other fitness freaks.",
       "image": "assets/images/splash3.png"
     },
   ];
@@ -70,6 +73,9 @@ class _BodyState extends State<Body> {
                     DefaultButton(
                       text: "Continue",
                       press: () {
+                        if (FirebaseAuth.instance.currentUser != null)
+                          Navigator.pushNamed(context, HomeScreen.routeName);
+                          else
                         Navigator.pushNamed(context, SignInScreen.routeName);
                       },
                     ),

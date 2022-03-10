@@ -81,26 +81,24 @@ class Body extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
             Expanded(
-              child: FutureBuilder<List<RentCard>>(
-                      future: FetchAllRentals().getData(),
-                      builder: (context, AsyncSnapshot<List<RentCard>> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Center(child: CircularProgressIndicator());
-                        } else {
-                            return ListView.builder(
-                                physics: ScrollPhysics(),
-                                scrollDirection: Axis.vertical,
-                                //shrinkWrap: true,
-                                itemCount: snapshot.data!.length,
-                                itemBuilder: (context, int i) {
-                                  return RentCardH.from(rentCard: snapshot.data!.elementAt(i));
-                              });
-                        }
-                      })
-
-              
-              
-            )
+                child: FutureBuilder<List<RentCard>>(
+                    future: FetchAllRentals().getData(),
+                    builder:
+                        (context, AsyncSnapshot<List<RentCard>> snapshot) {
+                      if (!snapshot.hasData) {
+                        return Center(child: CircularProgressIndicator());
+                      } else {
+                        return ListView.builder(
+                            physics: ScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            //shrinkWrap: true,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (context, int i) {
+                              return RentCardH.from(
+                                  rentCard: snapshot.data!.elementAt(i));
+                            });
+                      }
+                    }))
           ],
         ),
       )),
