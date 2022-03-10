@@ -62,7 +62,6 @@ class _MentorScreenState extends State<MentorScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    print(counter);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -106,7 +105,6 @@ class _MentorScreenState extends State<MentorScreen> {
                           } else {
                             // setState(() {  });
                             counter = snapshot.data!.length;
-                            print(counter);
 
                             return PageView.builder(
                               controller: controller,
