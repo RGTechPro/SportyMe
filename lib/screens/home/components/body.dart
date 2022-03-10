@@ -46,6 +46,13 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, EventForm.routeName);
+        },
+        backgroundColor: Color(0xffff6357),
+        child: Icon(Icons.add),
+      ),
       body: SafeArea(
           child: Padding(
         padding: EdgeInsets.all(18),
