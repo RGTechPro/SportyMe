@@ -23,7 +23,6 @@ CollectionReference _collectionRef =
             String contact = doc.get("contact");
 
             RentCard e = RentCard(userprof: pf, desc: desc, price: price, contact: contact);
-            print(e.contact);
             myList.add(e);
         }
 
