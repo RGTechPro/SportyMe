@@ -5,6 +5,8 @@ import 'package:shop_app/firebase/make_events.dart';
 import 'package:shop_app/firebase/user.dart';
 import 'package:shop_app/models/EventCard.dart';
 import 'package:shop_app/models/Profile.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intl/intl.dart';
 
 class EventForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -24,7 +26,7 @@ class EventForm extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.redAccent,
         title: Text(
-          'Not your pick?\nCreate your event!',
+          'Create event!',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -43,10 +45,23 @@ class EventForm extends StatelessWidget {
         child: (Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Text(
+              'Not Your Pick?',
+              style: TextStyle(
+                  color: Colors.black, fontFamily: 'Segoi', fontSize: 24),
+            ),
+            Text(
+              'Create an Event!',
+              style: TextStyle(
+                  color: Color(0xff3274d8),
+                  fontFamily: 'Segoi',
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold),
+            ),
             SizedBox(height: 40.0),
             _buildNameTextFormField(),
             SizedBox(height: 40.0),
-            _buildUrlTextFormField(),
+            _buildUrlTextFormField(context),
             SizedBox(height: 40.0),
             _buildEligibilityTextFormField(),
             SizedBox(height: 40.0),
@@ -113,11 +128,28 @@ class EventForm extends StatelessWidget {
     );
   }
 
-  TextFormField _buildUrlTextFormField() {
+  TextFormField _buildUrlTextFormField(BuildContext context) {
     return TextFormField(
+      onTap: () {
+        print("inkn");
+        DatePicker.showDateTimePicker(context,
+            showTitleActions: true,
+            minTime: DateTime(2018, 3, 5),
+            maxTime: DateTime(2022, 12, 12), onChanged: (date) {
+          String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(date);
+          _urlController.text = formattedDate;
+          print('change $date');
+        }, onConfirm: (date) {
+          String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(date);
+          _urlController.text = formattedDate;
+
+          print('confirm $date');
+        }, currentTime: DateTime.now(), locale: LocaleType.en);
+      },
+      readOnly: true,
       decoration: InputDecoration(
         labelText: 'Date-Time Pick',
-        hintText: '11/03/2022-7pm',
+        hintText: _urlController.text,
         labelStyle: TextStyle(
           color: Colors.black,
         ),

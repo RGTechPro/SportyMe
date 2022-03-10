@@ -1,30 +1,30 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shop_app/firebase/make_rental.dart';
 import 'package:shop_app/models/Profile.dart';
 import 'package:shop_app/models/RentCard.dart';
 import 'package:shop_app/screens/home/components/card.dart';
-
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import '../../firebase/user.dart';
 
-
 class RentOutForm extends StatelessWidget {
-  
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _urlController = TextEditingController();
   final TextEditingController _deadlineController = TextEditingController();
   final TextEditingController _elgController = TextEditingController();
 
-
   static String routeName = "/rentoutf";
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.redAccent,
-        title: Text('Not your pick?\nCreate your event!',style: TextStyle(color: Colors.white),),
+        title: Text(
+          'Create event!',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
         elevation: 0,
       ),
@@ -67,9 +67,14 @@ class RentOutForm extends StatelessWidget {
     //     url: 'https://' + _urlController.text,
     //     Owner: _deadlineController.text,
     //     equipment_availability: _elgController.text));
-    Profile my = await GetProfile(FirebaseAuth.instance.currentUser!.uid).getProfile();
+    Profile my =
+        await GetProfile(FirebaseAuth.instance.currentUser!.uid).getProfile();
 
-    RentCard rentalCard = RentCard(userprof: my, desc: _nameController.text, price: _deadlineController.text, contact: _elgController.text);
+    RentCard rentalCard = RentCard(
+        userprof: my,
+        desc: _nameController.text,
+        price: _deadlineController.text,
+        contact: _elgController.text);
     MakeRental().addRental(rentalCard).then((value) => print("Donee"));
     Navigator.of(context).pop();
   }
@@ -137,8 +142,17 @@ class RentOutForm extends StatelessWidget {
     );
   }
 
-  TextField _buildEligibilityTextField() {
-    return TextField(
+  TextFormField _buildEligibilityTextField() {
+    return TextFormField(
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+      ],
+      keyboardType: TextInputType.number,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Please Enter valid Mobile Number ';
+        }
+      },
       decoration: InputDecoration(
         labelText: 'Contact No.',
         hintText: '+910000000000',
