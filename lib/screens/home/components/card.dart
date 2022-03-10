@@ -1,7 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/models/RentCard.dart';
 
-class RentCard extends StatelessWidget {
-  const RentCard({Key? key}) : super(key: key);
+import '../../../models/Profile.dart';
+
+class RentCardH extends StatelessWidget {
+  RentCardH({Key? key}) : super(key: key);
+
+  
+  RentCard rentCard = RentCard(
+  userprof: 
+    Profile(uid: "id", 
+    name: "Anonymous User", 
+    img: "https://images.pexels.com/photos/4386404/pexels-photo-4386404.jpeg?cs=srgb&dl=pexels-karolina-grabowska-4386404.jpg&fm=jpg", 
+    email: "email"), 
+  desc: "I don't know who you are but yes, I will play badminton", 
+  price: "200 Rs/-", 
+  contact: "+91 0000 000000");
+
+  RentCardH.from({
+    required this.rentCard,
+});
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +41,7 @@ class RentCard extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(45),
                             child: Image.network(
-                              'https://images.pexels.com/photos/4386404/pexels-photo-4386404.jpeg?cs=srgb&dl=pexels-karolina-grabowska-4386404.jpg&fm=jpg',
+                              rentCard.userprof.img,
                               height: 90,
                               width: 90,
                               fit: BoxFit.fitWidth,
@@ -34,7 +53,7 @@ class RentCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Sanjeev K. Guleria',
+                              rentCard.userprof.name,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: 'TW',
@@ -44,22 +63,19 @@ class RentCard extends StatelessWidget {
                             SizedBox(
                               height: 10,
                             ),
-                            Text(
-                              "Badminton Rackets x2",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Segoi',
-                                  fontSize: 13),
+                            SizedBox(
+                                width: MediaQuery.of(context).size.width-200,
+                                child: Text(rentCard.desc),
                             ),
+                            // Text(
+                            //   rentCard.desc,
+                            //   style: TextStyle(
+                            //       color: Colors.black,
+                            //       fontFamily: 'Segoi',
+                            //       fontSize: 13),
+                            // ),
                             Text(
-                              "Badminton Rackets x2",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Segoi',
-                                  fontSize: 13),
-                            ),
-                            Text(
-                              "200 Rs",
+                              rentCard.price + " Rs",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,

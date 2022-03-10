@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/constants.dart';
+import 'package:shop_app/firebase/fetch_rental.dart';
+import 'package:shop_app/screens/forms/eventform.dart';
 import 'package:shop_app/screens/home/components/add_opportunity.dart';
 import 'package:shop_app/screens/home/components/card.dart';
 import 'package:shop_app/screens/home/components/job_list_tile.dart';
 import 'package:shop_app/screens/home/components/list_item_builder.dart';
 import 'package:shop_app/screens/home/components/opportunities.dart';
 
+import '../../../models/RentCard.dart';
 import '../../../size_config.dart';
 
+import '../../forms/rentoutform.dart';
 import 'home_banner.dart';
 import 'home_header.dart';
 
@@ -48,7 +52,7 @@ class Body extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, EventForm.routeName);
+          Navigator.pushNamed(context, RentOutForm.routeName);
         },
         backgroundColor: Color(0xffff6357),
         child: Icon(Icons.add),
@@ -77,14 +81,25 @@ class Body extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
             Expanded(
-              child: ListView.builder(
-                  physics: ScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  //shrinkWrap: true,
-                  itemCount: 6,
-                  itemBuilder: (context, int i) {
-                    return RentCard();
-                  }),
+              child: FutureBuilder<List<RentCard>>(
+                      future: FetchAllRentals().getData(),
+                      builder: (context, AsyncSnapshot<List<RentCard>> snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(child: CircularProgressIndicator());
+                        } else {
+                            return ListView.builder(
+                                physics: ScrollPhysics(),
+                                scrollDirection: Axis.vertical,
+                                //shrinkWrap: true,
+                                itemCount: snapshot.data!.length,
+                                itemBuilder: (context, int i) {
+                                  return RentCardH.from(rentCard: snapshot.data!.elementAt(i));
+                              });
+                        }
+                      })
+
+              
+              
             )
           ],
         ),
