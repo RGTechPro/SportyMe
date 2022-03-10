@@ -1,4 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/firebase/make_rental.dart';
+import 'package:shop_app/models/Profile.dart';
+import 'package:shop_app/models/RentCard.dart';
+import 'package:shop_app/screens/home/components/card.dart';
+
+import '../../firebase/user.dart';
 
 
 class RentOutForm extends StatelessWidget {
@@ -54,20 +61,24 @@ class RentOutForm extends StatelessWidget {
     );
   }
 
-  void _submit(BuildContext context) {
+  void _submit(BuildContext context) async {
     // opporValues.add(Opportunities(
     //     equipment: _nameController.text,
     //     url: 'https://' + _urlController.text,
     //     Owner: _deadlineController.text,
     //     equipment_availability: _elgController.text));
+    Profile my = await GetProfile(FirebaseAuth.instance.currentUser!.uid).getProfile();
+
+    RentCard rentalCard = RentCard(userprof: my, desc: _nameController.text, price: _deadlineController.text, contact: _elgController.text);
+    MakeRental().addRental(rentalCard).then((value) => print("Donee"));
     Navigator.of(context).pop();
   }
 
   TextField _buildNameTextField() {
     return TextField(
       decoration: InputDecoration(
-        labelText: 'Your Name',
-        hintText: 'Surabhi Mishra',
+        labelText: 'Description',
+        hintText: 'Something to tell about your equipment!',
         labelStyle: TextStyle(
           color: Colors.blue,
         ),
@@ -129,8 +140,8 @@ class RentOutForm extends StatelessWidget {
   TextField _buildEligibilityTextField() {
     return TextField(
       decoration: InputDecoration(
-        labelText: 'Timings for Renting',
-        hintText: '7am to 6pm',
+        labelText: 'Contact No.',
+        hintText: '+910000000000',
         labelStyle: TextStyle(
           color: Colors.blue,
         ),

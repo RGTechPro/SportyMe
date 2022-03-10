@@ -72,7 +72,7 @@ class EventForm extends StatelessWidget {
     Profile my = await GetProfile(FirebaseAuth.instance.currentUser!.uid).getProfile();
     EventCard card = EventCard(userprof: my, desc: _descController.text, venue: _elgController.text, sport: _nameController.text, time: _urlController.text, extratags: _tagsController.text);
     MakeEvents().addEvent(card).then((value) => print("Success!"));
-    // Navigator.of(context).pop();
+    Navigator.of(context).pop();
   }
 
   TextField _buildNameTextField() {

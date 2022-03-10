@@ -3,10 +3,10 @@ import 'package:shop_app/firebase/user.dart';
 import 'package:shop_app/models/Profile.dart';
 import 'package:shop_app/models/RentCard.dart';
 
-class MakeEvents {
+class MakeRental {
 
 CollectionReference _collectionRef =
-    FirebaseFirestore.instance.collection('events');
+    FirebaseFirestore.instance.collection('rentals');
 
     Future<void> addRental(RentCard eCard) {
       // Call the user's CollectionReference to add a new user
