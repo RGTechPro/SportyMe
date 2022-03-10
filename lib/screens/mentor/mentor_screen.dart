@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/custom_bottom_nav_bar.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/enums.dart';
+import 'package:shop_app/firebase/fetch.dart';
+import 'package:shop_app/models/EventCard.dart';
 import 'package:shop_app/screens/forms/eventform.dart';
 import 'package:shop_app/screens/home/components/home_header.dart';
 import 'package:shop_app/screens/home/components/list_item_builder.dart';
@@ -45,6 +49,16 @@ class MentorScreen extends StatefulWidget {
 }
 
 class _MentorScreenState extends State<MentorScreen> {
+  User? user = FirebaseAuth.instance.currentUser;
+  var _events_data;
+  int _counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _events_data = FetchAllEvents().getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -68,9 +82,9 @@ class _MentorScreenState extends State<MentorScreen> {
                 height: 20,
               ),
               Text(
-                'Hey, Rishabh!',
+                'Hey, '+user!.displayName!+"!",
                 style: TextStyle(
-                    color: Colors.black, fontFamily: 'Segoi', fontSize: 32),
+                    color: Colors.black, fontFamily: 'Segoi', fontSize: 24),
               ),
               Text(
                 'Looking to play?',
@@ -84,28 +98,28 @@ class _MentorScreenState extends State<MentorScreen> {
                 height: SizeConfig.screenHeight * .65,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 14),
-                  child: PageView(
-                      controller: controller,
-                      onPageChanged: (int i) {
-                        setState(() {});
-                      },
-                      //shrinkWrap: true,
-                      //  physics: PageScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        PlayCard(),
-                        PlayCard(),
-                        PlayCard(),
-                        PlayCard(),
-                        PlayCard(),
-                        PlayCard()
-                      ]),
+                  child: FutureBuilder<List<EventCard>>(
+                      future: FetchAllEvents().getData(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(child: CircularProgressIndicator());
+                        } else {
+                          // setState(() {  });
+                          _counter=snapshot.data!.length;
+                          return PageView.builder(
+                            itemBuilder: (context, position) {
+                              return PlayCard.from(eventCard: snapshot.data!.elementAt(position));
+                            },
+                            itemCount: _counter, // Can be null
+                          );
+                        }
+                      })
                 ),
               ),
               Center(
                 child: SmoothPageIndicator(
                     controller: controller, // PageController
-                    count: 6,
+                    count: _counter,
                     effect: WormEffect(), // your preferred effect
                     onDotClicked: (index) {}),
               )

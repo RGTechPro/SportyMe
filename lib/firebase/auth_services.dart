@@ -44,7 +44,6 @@ signInWithGoogle(BuildContext context) async {
 
      UserCredential user = await FirebaseAuth.instance.signInWithCredential(credential);
 
-
      print(user.user?.uid);
      print(user.user?.email);
      //if(user.additionalUserInfo.isNewUser) {

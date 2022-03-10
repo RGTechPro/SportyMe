@@ -1,8 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/models/EventCard.dart';
+import 'package:shop_app/models/Profile.dart';
 import '../../constants.dart';
 
 class PlayCard extends StatelessWidget {
-  const PlayCard({Key? key}) : super(key: key);
+  PlayCard({Key? key}) : super(key: key);
+
+  EventCard eventCard = EventCard(
+  userprof: 
+    Profile(uid: "id", 
+    name: "Anonymous User", 
+    img: "https://images.pexels.com/photos/4386404/pexels-photo-4386404.jpeg?cs=srgb&dl=pexels-karolina-grabowska-4386404.jpg&fm=jpg", 
+    email: "email"), 
+  desc: "I don't know who you are but yes, I will play badminton", 
+  venue: "Rose Cottage, 9 Garden Walk (Complex road name is Garden), Happy Valley Retirement Village, 75 Davis Street, NORWOOD SA 5067", 
+  sport: "BASKETBALL", 
+  time: "5.20 pm on 09/03/2022", 
+  extratags: "Extra-tags: Amateur, Fun, Casual Play, Friendly Match, Need One");
+
+  PlayCard.from({
+    required this.eventCard,
+});
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +42,7 @@ class PlayCard extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(45),
                               child: Image.network(
-                                'https://images.pexels.com/photos/4386404/pexels-photo-4386404.jpeg?cs=srgb&dl=pexels-karolina-grabowska-4386404.jpg&fm=jpg',
+                                this.eventCard.userprof.img,
                                 height: 90,
                                 width: 90,
                                 fit: BoxFit.fitWidth,
@@ -36,7 +55,7 @@ class PlayCard extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Sanjeev K. Guleria',
+                                  this.eventCard.userprof.name,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: 'TW',
@@ -47,7 +66,7 @@ class PlayCard extends StatelessWidget {
                                   height: 10,
                                 ),
                                 Text(
-                                  "I don't know who you are but yes, I will play badminton",
+                                  this.eventCard.desc,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: 'Segoi',
@@ -76,7 +95,7 @@ class PlayCard extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            "Rose Cottage, 9 Garden Walk (Complex road name is Garden), Happy Valley Retirement Village, 75 Davis Street, NORWOOD SA 5067",
+                            this.eventCard.venue,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: 'Segoi',
@@ -96,7 +115,7 @@ class PlayCard extends StatelessWidget {
                           width: 10,
                         ),
                         Text(
-                          'BASKETBALL',
+                          this.eventCard.sport,
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: 'Koho',
@@ -111,14 +130,14 @@ class PlayCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Time: 5.20 pm on 09/03/2022",
+                            "Time: " + this.eventCard.time,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: 'Segoi',
                                 fontSize: 13),
                           ),
                           Text(
-                            "Extra-tags: Amateur, Fun, Casual Play, Friendly Match, Need One",
+                            "Extra-Tags: " + this.eventCard.extratags,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: 'Segoi',
