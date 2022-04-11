@@ -98,10 +98,10 @@ class EventForm extends StatelessWidget {
       EventCard card = EventCard(
           userprof: my,
           desc: _descController.text,
-          venue: _elgController.text,
+          venue: _deadlineController.text,
           sport: _nameController.text,
           time: _urlController.text,
-          extratags: _tagsController.text);
+          extratags: _tagsController.text + ", need: " + _elgController.text);
       MakeEvents().addEvent(card).then((value) => print("Success!"));
       Navigator.of(context).pop();
     }
